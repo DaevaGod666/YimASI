@@ -13,7 +13,7 @@ jobs:
 
     steps:
     - name: Checkout source
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Setup MSBuild
       uses: microsoft/setup-msbuild@v1.3.1
@@ -25,7 +25,7 @@ jobs:
       run: msbuild YimASI.sln /p:Configuration=Release /p:Platform=x64
 
     - name: Upload artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: YimASI-ASI
         path: |
