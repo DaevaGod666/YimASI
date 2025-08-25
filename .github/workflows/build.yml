@@ -1,0 +1,33 @@
+name: Build YimASI
+
+on:
+  workflow_dispatch:  # lets you run it manually
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout source
+      uses: actions/checkout@v3
+
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v1.3.1
+
+    - name: Add MSVC Developer Command Prompt
+      uses: ilammy/msvc-dev-cmd@v1
+
+    - name: Build solution
+      run: msbuild YimASI.sln /p:Configuration=Release /p:Platform=x64
+
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: YimASI-ASI
+        path: |
+          x64/Release/*.asi
+          x64/Release/*.dll
